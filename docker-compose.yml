@@ -1,0 +1,22 @@
+version: '3'
+
+services: 
+  koa-mongo:
+    build: .
+    container_name: koa-mongo
+    env_file:
+      - ./koa.env
+    restart: always
+    links:
+      - mongo
+    ports:
+      - "8000:8000" 
+      
+  mongo:
+    container_name: mongo
+    image: shintech/shintech-mongo:latest
+    env_file:
+        - ./mongo.env
+    volumes:
+      - ./data/mongo:/data/db
+    restart: always
