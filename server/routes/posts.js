@@ -5,7 +5,7 @@ module.exports = {
     let body
 
     try {
-      body = await db.Post.find().sort([['_id', -1]])
+      body = await db.Post.find()
     } catch (err) {
       body = err.message
     }
