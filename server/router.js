@@ -13,5 +13,4 @@ module.exports = new Router({
 
   .get('/posts', posts.fetchAll)
   .post('/posts', posts.addPost)
-
   .get('/posts/:id', posts.fetchOne)
