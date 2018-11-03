@@ -23,16 +23,14 @@ const host = 'localhost'
 const logger = require('shintech-logger')({ environment })
 const db = configDB({ logger, environment })
 
-const server = require(path.join(__dirname, 'server'))({ pkg, db, logger, environment, port, host, root })
+const server = require(path.join(__dirname, 'server'))({ pkg, db, logger, environment, port, host, root }).listen()
 
-const app = server.listen()
+global._server = server
 
-app.on('close', () => {
+server.on('close', () => {
   const connection = mongoose.connection
   connection.close()
 })
-
-global._server = app
 
 global._postsMock = [
   {
