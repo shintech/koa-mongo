@@ -15,7 +15,7 @@ module.exports = ({ logger, environment }) => {
     }
 
     connection.on('close', () => {
-      logger.warn('Closing mongodb connection...')
+      logger.warn('closing mongodb connection...')
     })
   })
 

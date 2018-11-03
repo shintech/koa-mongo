@@ -2,7 +2,6 @@ const Koa = require('koa')
 const compress = require('koa-compress')
 const bodyParser = require('koa-bodyparser')
 const router = require('./router')
-const mongoose = require('mongoose')
 
 module.exports = ({ pkg, db, logger, port, environment, root }) => {
   const server = new Koa()
@@ -59,24 +58,5 @@ module.exports = ({ pkg, db, logger, port, environment, root }) => {
     ctx.status = 404
   })
 
-  const app = server.listen(port)
-
-  app.on('listening', () => {
-    logger.info(`${pkg.name} - version: ${pkg.version} - listening on port ${port}...`)
-  })
-
-  app.on('close', () => {
-    logger.warn('Shutting down server...')
-
-    const connection = mongoose.connection
-    connection.close().then(() => {
-      logger.info('Goodbye...')
-    })
-  })
-
-  process.on('SIGINT', () => {
-    app.close()
-  })
-
-  return app
+  return server
 }
