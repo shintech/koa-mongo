@@ -1,7 +1,6 @@
 const { URL } = require('url')
-const path = require('path')
 const pkg = require('./package.json')
-const configDB = require('./server/db')
+const router = require('./router')
 const mongoose = require('mongoose')
 
 const urls = {
@@ -20,17 +19,32 @@ const environment = 'test'
 const port = 8000
 const host = 'localhost'
 
-const logger = require('shintech-logger')({ environment })
-const db = configDB({ logger, environment })
+const logger = require('shintech-logger')({
+  environment
+})
 
-const server = require(path.join(__dirname, 'server'))({ pkg, db, logger, environment, port, host, root }).listen()
+const db = require('./server/db')({
+  logger,
+  environment
+})
 
-global._server = server
+const server = require('shintech-koa')({
+  pkg,
+  db,
+  logger,
+  router,
+  environment,
+  port,
+  host,
+  root
+}).listen()
 
 server.on('close', () => {
   const connection = mongoose.connection
   connection.close()
 })
+
+global._server = server
 
 global._postsMock = [
   {
