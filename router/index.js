@@ -1,4 +1,4 @@
-const { posts } = require('./routes')
+const posts = require('./posts')
 const Router = require('koa-router')
 
 module.exports = new Router({
