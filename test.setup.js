@@ -1,7 +1,9 @@
 const { URL } = require('url')
+const mongoose = require('mongoose')
+
 const pkg = require('./package.json')
 const router = require('./router')
-const mongoose = require('mongoose')
+const Post = require('./schemas/Post')
 
 const urls = {
   posts: new URL('http://localhost:65332')
@@ -19,14 +21,24 @@ const environment = 'test'
 const port = 8000
 const host = 'localhost'
 
+const DB = process.env['MONGO_INITDB_DATABASE'] || 'api_development'
+const MONGO_URL = process.env['MONGO_URL'] || 'localhost'
+
+let connectionString = `mongodb://${MONGO_URL}/${DB}`
+
 const logger = require('shintech-logger')({
   environment
 })
 
-const db = require('./server/db')({
+require('shintech-connect-mongo')({
   logger,
-  environment
+  environment,
+  connectionString
 })
+
+const db = {
+  Post
+}
 
 const server = require('shintech-koa')({
   pkg,

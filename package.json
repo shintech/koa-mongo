@@ -1,6 +1,6 @@
 {
   "name": "koa-mongo",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -19,6 +19,7 @@
     "koa-compress": "^3.0.0",
     "koa-router": "^7.4.0",
     "mongoose": "^5.2.14",
+    "shintech-connect-mongo": "^0.0.3",
     "shintech-koa": "^0.0.2",
     "shintech-logger": "^0.0.1",
     "winston": "^3.1.0"

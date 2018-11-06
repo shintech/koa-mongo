@@ -2,9 +2,10 @@
 
 const mongoose = require('mongoose')
 const faker = require('faker')
-let Post = require('./server/schemas/Post')
+let Post = require('./schemas/Post')
 
-const DB = process.env['MONGO_INITDB_DATABASE'] || 'api_development'
+const environment = process.env['NODE_ENV'] || 'development'
+const DB = process.env['MONGO_INITDB_DATABASE'] || `api_${environment}`
 const URL = process.env['MONGO_URL'] || 'localhost'
 
 let connectionString = `mongodb://${URL}/${DB}`
